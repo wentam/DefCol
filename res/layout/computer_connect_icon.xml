@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="120dp"
+    android:background="@drawable/border">
+  <RelativeLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="160dp"
+      android:layout_height="120dp"
+      android:id="@+id/manage_pals">
+
+    <ImageView
+	android:src="@drawable/computer_connect_icon" 
+	android:layout_width="60dp"
+	android:layout_height="60dp"
+	android:layout_centerHorizontal="true"
+	android:layout_marginTop="5dp"/>
+
+    <TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_centerHorizontal="true"
+	android:layout_alignParentBottom="true"
+	android:gravity="center_horizontal"
+	android:text="Connect to a computer"
+	android:textStyle="bold"
+	android:textSize="21sp"
+	android:textColor="#444444"
+	/>
+  </RelativeLayout>
+</LinearLayout>

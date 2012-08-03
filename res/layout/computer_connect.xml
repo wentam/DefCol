@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_bg">
+
+  <Button
+      android:id="@+id/start"
+      android:layout_width="100dp"
+      android:layout_height="50dp"
+      android:layout_marginTop="5dp"
+      android:text="Start" />
+
+    <Button
+      android:id="@+id/stop"
+      android:layout_width="100dp"
+      android:layout_height="50dp"
+      android:text="Stop"
+      android:layout_marginTop="5dp"
+      android:layout_alignParentRight="true"/>
+
+    <TextView
+	android:id="@+id/text"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="60dp"
+	android:layout_gravity="center"
+	android:gravity="center"
+	android:textColor="#000000"
+	android:text="Press start, and then go to [ip:port] in your computer's browser"/>
+
+</RelativeLayout>

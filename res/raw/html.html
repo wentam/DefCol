@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+
+    <title>DefCol</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script language="javascript" src="?action=getJquery"></script>
+    <script language="javascript" src="?action=getJs"></script>
+
+    <style>
+      * {margin:0;padding:0;} 
+      body {background-color:#9ebacb;}  
+      
+      #header {  
+      position:relative; 
+      height: 40px;    
+      width: 100%;  
+      background-color:#416880;    
+      -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);    
+      box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);   
+      z-index:10;      
+      }      
+
+      #leftbar {  
+      position:absolute;   
+      background-color:#a8b3b3;  
+      left:0;    
+      top:40px;  
+      bottom:0;    
+      width:300px;   
+      z-index:0;
+      border-width:0;   
+      border-right-width:1px;   
+      border-style:solid;   
+      border-color:#000000;  
+      overflow:auto;      
+      }
+
+      #rightbar {
+      position:absolute;
+      left:300px;
+      top:40px;
+      z-index:0;
+      bottom:0;
+      right:0;
+      overflow:auto;
+      margin-left:2px;
+      }
+
+      .color {
+      float:left;
+      width:70px;
+      height:70px;
+      margin:2px;
+      text-align:center;
+      }     
+
+      #efcol {    
+      position:absolute;    
+      left: 30px;  
+      top:8px;  
+      font-size:18px;  
+      font-family:arial; 
+      color:#2222aa; 
+      }      
+
+      .palette_item {
+      font-size:20px;
+      font-weight:bold; 
+      font-family:arial; 
+      text-align:center; 
+      width:100%; 
+      height:36px;
+      background-color:#7facc8;
+      padding-top:10px;
+      cursor:pointer;  
+      border-width:1px;
+      border-left-width:0px;
+      border-right-width:0px; 
+      border-style:solid; 
+      border-color:#6e9bb7;
+      }
+      
+      .palette_item:hover { 
+      background-color:#527a93; 
+      }    
+    </style>  
+
+  </head>
+  <body onload="init();">
+    <div id="header">     
+      <img style="margin-top:2px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABmJLR0QAZQCoAMd6+hiJAAAACXBI		WXMAABcSAAAXEgFnn9JSAAAAB3RJTUUH3AYJExY5Bp3sKAAABSFJREFUWMPNmG2IVFUYx3/POTN3		dmbnxdVc1nXXtDZxkaCgsi0LQon6ICFiIkRJpX2x/FAEQvStL1mUriuGGb0jvRhYkJopBJnBFpHa		i0q47ZoLtbq67e7Mzr3n6cO9M7vqrm8zSAcuwz1z7jm/+39e7nMO/I+aXNDz1uAKjG0DahFJg9Si		mkUkA2QQ0kAaMTFEwLmjuOARTvZ0srbFVRcG4F2/B2OmA8iYESJyzn3Ypwoims+7YOfvC9l2y76r		hTHj9p7smpGw2lMTF03EBC+64hZiJrysDS8RhJFhDd7ZZmzDzXvt0/mHqqsMwOvd1qufdghj55RG		aek/Lf0oGMF/cyu29TEwMUVVNPDvd+3eV9WDiVrsQ/8Axs4b7wn1wL33AVL/IFJTByKoqgKirni3		bkjsryoMAB/rDqMsKuviEATczs8Rv1XluhbRsRNGRFrMz6YjdayqMHctWjN4fNa8VDB0Bjt4mmK2		/tm/73x4G7v+XGamzX1JISlEjlwiDnny5M/Ws3nSv1WDefzlb7VYzBNP1BL3atTYOLF4It2+qmUI		wKzxP3ViFyOIqCoiZYEE8gQjOW2vKV7SJS4HxnoJmubcgTqHKgLqgmKh7M9ufWwJq4cbxHqdasx0		QRUVkRAqqdbrY2X/ZLZM8q88tMcR0IhFxGBEEDHo+aJuTPbqetvESGEhMekLlQFFFZEMqcxhFnwk		lcMoUUIRMCa0gkwwb0fN1/rGqiHtfB9slCmdQvexRuYvbazYTOACwCKCqIZsqE44PJ6bzM/fwMEd		MPMeOHIAsrem6WzYDsyrDEbFEb5n6PJ6KUElQSwD5KB/EjQuD+VVV1exmTRUJoo9KdntIiwSL4+z		WcCV0nZvFcxEcP73wIhcTMkQViQUVINS8jlZhWgi0JKLlF1FdOLcFSkndkyXANpbMYyACyFcuAbg		mKB0yayuC2F0zPQKglbFTApBKYbQaKlgAmGCQFAXPiYilKBV5VIwl6tMaCanoA5U0Ylo2ua3kY69		Ck7OmV4A1dNVUQZ1kUMKqOI4j2Xx9xbLL+T7Z9PUAL3H4ewFU52tTjSVreRGfbTUlv3UhvX2gKaw		CSWeCkPNdAN9EGR3gyRQd6JyGMU5dYiaKFAcgR/5wvJDWxDzJDhFFYwVknVw/QJoHAR/EMTeTvOM		G9hwY3/lZlINQBGNSk0HW/f+1cLyQ18gOgstgoogBowJlattgNSUUnaqozB4G7CnCmbSAKc4MxoZ		AyNyGFdUCEBiIYRYsHHINIP1wEW1jT+8hM3pPZXXM2t/tIVgSEMzSRRJThgZAKeC9cDYECiegmxz		FPuqCIJfeJ5Nqe1Xv1UZ22r83n2nztwk6lDnoxqgzleKAwoGbCKESU+HTNNochaEwF/Hppp11amB		XzlylJF8C/90actwn5waOE0hmWOkeS7FLz+BWStCmNyM0dQf1T44v50O75kr2R1MbKb1XTsR00LM		U5rnyjEXQOCHqxkLMxvAFWDKHM4pbQRw/ttXCkK5RrlgA3f8BWxsZXlPawx4SUhmIZmD2jpovRcO		bgG/Tkk1hM6ECC7YRYe3tHrbW6Sr/JoSfX2zU6E2B8k0xBPgfFj2ItQcEAb/+DUs/txvdHgPVHev		7YL9ZQdQIDc1+iaNqSFEoBjAfatgrhumWHyKjfHW6p9CALR3+4AlWw9ixgP+DnWfMVLYTrK2h0e9		QqXnMxM7sNPXyE19DtUfcMUvcW43xp7A+ad4ItN/bY+R1h01XOP2H+eOLE+Qf6VvAAAAAElFTkSu		QmCC		" />
+
+      
+
+      <div id="efcol">efcol</div>
+    </div> 
+
+    <div id="leftbar">
+    </div>
+
+    <div id="rightbar">
+      <!-- <div class="color" style="background-color:#123456">#123456</div> -->
+      <!-- <div class="color" style="background-color:#ffffff">#123456</div> -->
+    </div>
+
+  </body>
+</html>
