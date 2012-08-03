@@ -2,7 +2,7 @@
 ======
 
 <a href="http://play.google.com/store/apps/details?id=com.wentam.defcol">
-	  <img alt="Get it on Google Play" src="/static/defcol/images/get_it_on_play_logo_large.png" style="margin-top:30px;"/>
+	  <img alt="Get it on Google Play" src="http://wentam.com/static/defcol/images/get_it_on_play_logo_large.png" style="margin-top:30px;"/>
 </a>
 
 ## Compiling
