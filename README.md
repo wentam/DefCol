@@ -1,8 +1,8 @@
-[DefCol](http://dev.wentam.com/?defcol=1)
+<img alt="DefCol logo" src="http://dev.wentam.com/static/defcol/images/defcol.png">[efCol](http://dev.wentam.com/?defcol=1)
 ======
 
 <a href="http://play.google.com/store/apps/details?id=com.wentam.defcol">
-	  <img alt="Get it on Google Play" src="http://dev.wentam.com/static/defcol/images/get_it_on_play_logo_large.png" style="margin-top:30px;"/>
+	  <img alt="Get it on Google Play" src="http://dev.wentam.com/static/defcol/images/get_it_on_play_logo_large.png"/>
 </a>
 
 ## Compiling
