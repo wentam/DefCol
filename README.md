@@ -1,9 +1,4 @@
-<a href="http://dev.wentam.com/?defcol=1">
-   DefCol
-</a>
-
-
-[efCol](http://dev.wentam.com/?defcol=1)
+[DefCol](http://dev.wentam.com/?defcol=1)
 ======
 
 <a href="http://play.google.com/store/apps/details?id=com.wentam.defcol">
