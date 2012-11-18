@@ -65,7 +65,7 @@ public class h_svRenderer implements GLSurfaceView.Renderer {
     private float _value; public float getValue(){return _value;}
 
 
-    // color change task that get's ran in onSurfaceChanges
+    // color change task that gets ran in onSurfaceChanged
     private boolean doSetColorJob = false;
     private float colorJobHue;
     private float colorJobSaturation;
@@ -376,7 +376,7 @@ public class h_svRenderer implements GLSurfaceView.Renderer {
 	int b_px = bottom_margin_dp*(dpi/160);       
 	float bottom_margin = heightPxToFloat(b_px);
 
-	// create grad
+	// create gradient
 	sv_2d_gradient = new sv_2d_gradient(gl, -0.9f, 0.9f, -1f+bottom_margin, 1f-top_margin, 250f, onePixelWidth, onePixelHeight);
 	
 
