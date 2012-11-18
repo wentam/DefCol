@@ -86,9 +86,8 @@ public class PaletteListActivity extends SherlockActivity
 
 	int[] tmp = {0};
 	final ArrayList<String> palette_names = paletteFile.getRows(tmp);
-
-	
-	// inflate + button from xml
+       
+	// inflate add palette (plus sign) button from xml
 	LinearLayout add_new_palette_button = (LinearLayout) ((LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.add_new_palette_button, null);
       
 	// set up ListView
