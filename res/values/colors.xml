@@ -2,4 +2,6 @@
 <resources>
   <color name="main_bg">#ff888888</color>
   <color name="black">#ff000000</color>
+  <color name="highlight">#33B5E5</color>
+  <color name="transparent">#00ffffff</color>
 </resources>
