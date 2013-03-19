@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="DefCol" parent="@style/Theme.Sherlock">
+    <item name="android:actionBarStyle">@style/ActionBar</item>  	
+  </style>
+
+  <!-- action bar -->
+  <style name="ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+    <item name="android:background">@drawable/actionbar</item>
+    <item name="android:titleTextStyle">@style/ActionBarTitle</item>
+  </style>
+
+  <style name="ActionBarTitle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    <item name="android:textColor">@color/actionbar_text</item>
+  </style>
+  <!-- action bar end -->
+
+</resources>
