@@ -220,8 +220,10 @@ public class colorPickerActivity extends Activity
 	} else if (item.toString() == "Copy color") {
 	    ClipboardManager clipboard =  (ClipboardManager) getSystemService(CLIPBOARD_SERVICE); 
 	    clipboard.setText(color);
-	    Toast.makeText(this, "Color copied to clipboard",
-			   Toast.LENGTH_SHORT).show();
+	    Toast t = Toast.makeText(this, "Color copied to clipboard",
+			   Toast.LENGTH_SHORT);
+
+	    t.show();
 	    return true;
 	} else {
 	    return super.onOptionsItemSelected(item);
