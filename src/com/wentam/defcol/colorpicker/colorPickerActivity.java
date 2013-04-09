@@ -80,7 +80,7 @@ public class colorPickerActivity extends Activity
         subMenu1.add("More modes to come!");
 
         MenuItem subMenu1Item = subMenu1.getItem();
-        subMenu1Item.setIcon(R.drawable.list);
+        // subMenu1Item.setIcon(R.drawable.list);
         subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         return true;
