@@ -8,15 +8,24 @@
     android:gravity="center"
     android:layout_gravity="center">
 
-  <GridView xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:id="@+id/gridview"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:columnWidth="160dp"
-    android:numColumns="3"
+  <FrameLayout
+      android:id="@+id/main"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="@drawable/mainbg"
+      android:layout_gravity="center">
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android" 
+	      android:id="@+id/gridview"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:columnWidth="160dp"
+	      android:numColumns="3"
 
     android:listSelector="@null"
     android:layout_gravity="center"
     />
+
+  </FrameLayout>
 
 </RelativeLayout>

@@ -7,42 +7,7 @@
     android:background="@color/main_bg"
     android:orientation="vertical">
 
-  <!-- header start -->
-  <!-- <RelativeLayout -->
-  <!--     android:layout_height="wrap_content" -->
-  <!--     android:layout_width="fill_parent"> -->
-  <!--   <RelativeLayout -->
-  <!-- 	android:id="@+id/header" -->
-  <!-- 	android:layout_width="fill_parent" -->
-  <!-- 	android:layout_height="55dp" -->
-  <!-- 	android:background="@drawable/header"> -->
 
-      <!-- <View -->
-      <!-- 	  android:layout_width="1dp" -->
-      <!-- 	  android:layout_height="55dp" -->
-      <!-- 	  android:background="#343434" -->
-      <!-- 	  android:layout_alignParentRight="true" -->
-      <!-- 	  android:layout_marginRight="55dp" /> -->
-
-      <!-- <ImageView -->
-      <!-- 	  android:layout_alignParentRight="true" -->
-      <!-- 	  android:layout_width="40dp" -->
-      <!-- 	  android:layout_height="40dp" -->
-      <!-- 	  android:src="@drawable/plus" -->
-      <!-- 	  android:layout_marginRight="7dp" -->
-      <!-- 	  android:layout_marginTop="7dp"/> -->
-	
-  <!--   </RelativeLayout> -->
-
-  <!--   <View -->
-  <!--       android:layout_below="@id/header" -->
-  <!--       android:layout_width="fill_parent" -->
-  <!--       android:layout_height="4dip" -->
-  <!--       android:background="@drawable/drop_shadow" -->
-  <!--       > -->
-  <!--   </View> -->
-  <!-- </RelativeLayout> -->
-  <!-- header end -->
 
   <!-- list start -->
   <ListView
@@ -52,6 +17,22 @@
       android:cacheColorHint="@color/main_bg" 
       />
   <!-- list end  -->
+
+  <FrameLayout
+      android:id="@+id/main"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="#444444"
+      android:layout_gravity="center">
+
+    <View 
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/mainbg_plus"
+	/>
+
+  </FrameLayout>
+
 
 </LinearLayout>
 

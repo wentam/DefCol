@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="main_bg">#ff888888</color>
+  <color name="main_bg">#868699</color>
   <color name="black">#ff000000</color>
   <color name="highlight">#33B5E5</color>
   <color name="transparent">#00ffffff</color>
+
+  <!-- action bar -->
+  <color name="actionbar_bg">#777777</color>
+  <color name="actionbar_bottom_border">#717171</color>
+  <color name="actionbar_text">#dddddd</color>
+  <!-- action bar ned -->
 </resources>

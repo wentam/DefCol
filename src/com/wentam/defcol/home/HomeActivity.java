@@ -39,13 +39,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.util.DisplayMetrics;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import android.graphics.drawable.ColorDrawable;
 
 import android.content.res.Resources;
 
 
-public class HomeActivity extends SherlockActivity
+public class HomeActivity extends Activity
 {
 
     @Override
@@ -53,9 +52,6 @@ public class HomeActivity extends SherlockActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
-	// set background color for action bar
-	getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF222222));
 
 	// get screen width and height
 	Display display = getWindowManager().getDefaultDisplay();

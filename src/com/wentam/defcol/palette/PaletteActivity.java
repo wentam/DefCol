@@ -51,14 +51,13 @@ import android.util.Log;
 
 import java.lang.Runnable;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.ActionProvider;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.view.ActionProvider;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import android.graphics.drawable.ColorDrawable;
 
-public class PaletteActivity extends SherlockActivity
+public class PaletteActivity extends Activity
 {
     private Context c = this;
     private PaletteFile paletteFile;
@@ -71,8 +70,7 @@ public class PaletteActivity extends SherlockActivity
     {
         super.onCreate(savedInstanceState);
 	
-	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF222222));
+	getActionBar().setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.palette);
 
@@ -85,7 +83,7 @@ public class PaletteActivity extends SherlockActivity
 	int tmp[] = {0};
 
 	String name = paletteFile.getRow(palette_id,tmp);
-	getSupportActionBar().setTitle(name);
+	getActionBar().setTitle(name);
 
 
 	// give the radialPaletteView it's colors!

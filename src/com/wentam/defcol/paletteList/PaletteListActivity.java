@@ -13,11 +13,10 @@
 // See the License for the specific language governing permissions and      
 // limitations under the License.					      
 //////////////////////////////////////////////////////////////////////////////
-
 package com.wentam.defcol.paletteList;
 
 import com.wentam.defcol.R;
-
+import com.wentam.defcol.paletteList.PaletteListAdapter;
 import com.wentam.defcol.PaletteFile;
 import com.wentam.defcol.palette.PaletteActivity;
 
@@ -29,6 +28,7 @@ import android.os.Bundle;
 
 import android.widget.GridView;
 import android.widget.AdapterView;
+import android.widget.Adapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
@@ -37,6 +37,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.AbsListView.MultiChoiceModeListener;
 
 import android.view.ViewGroup.LayoutParams;
 
@@ -45,6 +47,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import android.util.Log;
+import android.util.SparseBooleanArray;
 
 import android.os.Environment;
 
@@ -61,17 +64,56 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.ActionProvider;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.view.ActionProvider;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ActionMode;
+import android.view.MenuInflater;
+import android.view.SubMenu;
 
 import android.graphics.drawable.ColorDrawable;
 
-public class PaletteListActivity extends SherlockActivity
+public class PaletteListActivity extends Activity
 {
     private File file;
     private final Context context = this;
+    private ArrayList<String> palette_names;
+    private PaletteFile paletteFile;
+    private PaletteListAdapter listAdapter;
+    private ListView l;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Add Palette")
+            .setIcon(R.drawable.new_item)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);       
+	
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+	if (item.getItemId() == android.R.id.home) {
+	    finish();
+            return true;
+	} else if (item.toString() == "Add Palette") {
+	    paletteFile.addNewPalette("New Palette","000000");
+	    palette_names.add("New Palette");
+	    listAdapter.notifyDataSetChanged();
+	    
+	    // if the new list item pushed the 'add new palette' button below the screen,
+	    // scroll to the bottom
+	    if (l.getMeasuredHeight()+l.getChildAt(0).getMeasuredHeight() 
+		>=
+		findViewById(R.id.parentview).getMeasuredHeight()) {
+		
+		l.smoothScrollToPosition(palette_names.size());
+	    }
+	    return true;
+	} else {
+	    return super.onOptionsItemSelected(item);
+	}
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -79,117 +121,153 @@ public class PaletteListActivity extends SherlockActivity
         super.onCreate(savedInstanceState);
 	setContentView(R.layout.manage_palettes);
 
-	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF222222));
-	getSupportActionBar().setTitle("Palettes");
-	final PaletteFile paletteFile = new PaletteFile();
+	getActionBar().setDisplayHomeAsUpEnabled(true);
+	getActionBar().setTitle("Palettes");
+	paletteFile = new PaletteFile();
 
 	int[] tmp = {0};
-	final ArrayList<String> palette_names = paletteFile.getRows(tmp);
+	palette_names = paletteFile.getRows(tmp);
        
 	// inflate add palette (plus sign) button from xml
 	LinearLayout add_new_palette_button = (LinearLayout) ((LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.add_new_palette_button, null);
       
 	// set up ListView
-	final ListView l = (ListView) findViewById(R.id.listview);
-	l.setVerticalFadingEdgeEnabled(true);
-	l.addFooterView(add_new_palette_button);
+	l = (ListView) findViewById(R.id.listview);
+	// l.addFooterView(add_new_palette_button);
+	l.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
-	final ArrayAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.palette_list_item, palette_names);
-	l.setAdapter(listAdapter);
+	listAdapter = new PaletteListAdapter(context, palette_names, paletteFile, l);
+	l.setAdapter((ListAdapter) listAdapter);
 
-	l.setOnItemClickListener(new OnItemClickListener() {
-		public void onItemClick (AdapterView<?> parent, View v, int position, long id) {
-		    if (position == palette_names.size()) {
 
-			// add palette
-			paletteFile.addNewPalette("New Palette","000000");
-			palette_names.add("New Palette");
-			listAdapter.notifyDataSetChanged();
+	l.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+		@Override
+		public void onItemCheckedStateChanged(ActionMode mode, int position,
+						      long id, boolean checked) {
 
-			// if we scroll when we don't need too, there's a strange delay that's longer than the scroll time where the application is completely unresponsive.
-			// this seems like something that should be implemented inside the listview by extending it, so I declare this an ugly hack.
-			if (l.getMeasuredHeight()+l.getChildAt(0).getMeasuredHeight() >= findViewById(R.id.parentview).getMeasuredHeight()) {
-			    l.smoothScrollToPosition(palette_names.size());
-			}
-		    } else {
-			// load palette page!
-			Intent myIntent = new Intent(context, PaletteActivity.class);
-			myIntent.putExtra("pallete_id",""+position);
-			int[] tmp = {1};
-			myIntent.putExtra("pallete_colors",""+paletteFile.getRow(position, tmp));
-			context.startActivity(myIntent);
-		    }
+		    mode.setTitle(l.getCheckedItemCount()+" selected");
 		}
-	    });
 
-	// TODO: this block is messy, thanks to the nested listeners
-	l.setOnItemLongClickListener(new OnItemLongClickListener() {
-		public boolean onItemLongClick(AdapterView<?> parent, View v, final int position, long id) {       
-		    if (position < palette_names.size()) {
-			final CharSequence[] items = {"Rename","Delete"};
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		    SparseBooleanArray checked = l.getCheckedItemPositions();
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(context)
-			    .setItems(items,
-				      new DialogInterface.OnClickListener() {
-					  public void onClick(DialogInterface dialog, int index) {
-					      if (index == 0) {
-						  Log.i("DEFCOL","rename!");
-						  AlertDialog.Builder builder;
-						  final AlertDialog alertDialog;
-						  LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-						  View layout = inflater.inflate(R.layout.rename_palette, null);
+		    final ActionMode m = mode;
 
-						  builder = new AlertDialog.Builder(context);
-						  builder.setView(layout);
-						  builder.setTitle("Rename Palette");
-						  alertDialog = builder.create();
-						  alertDialog.show();
+		    switch (item.getItemId()) {
+		    case R.id.delete:
+			
+			for (int i = palette_names.size()-1; i >= 0; i--) {
+			    if (l.isItemChecked(i)) {
+				paletteFile.deletePalette(i);
+				palette_names.remove(i);
+			    }
+			}
 
-						  final EditText rename_text = (EditText) layout.findViewById(R.id.edittext);
-						  rename_text.setText(palette_names.get(position));
+			listAdapter.notifyDataSetChanged();
+				
 
-						  Button cancelButton = (Button) layout.findViewById(R.id.cancel);
-						  cancelButton.setOnClickListener(new OnClickListener() {
-							  public void onClick(View v)
-							  {
-							      alertDialog.dismiss();
-							  } 
-						      });
+		    	mode.finish();
+		    	return true;
+		    case R.id.rename:
 
-						  Button doneButton = (Button) layout.findViewById(R.id.done);
-						  doneButton.setOnClickListener(new OnClickListener() {
-							  public void onClick(View v)
-							  {
-							      String new_name = rename_text.getText().toString();
-							      
-							      // rename palette
-							      paletteFile.renamePalette(position, new_name);	
-							      palette_names.set(position, new_name);
-							      listAdapter.notifyDataSetChanged();
+			int first_checked_nonfinal = -1;
+			for (int i = palette_names.size()-1; i >= 0; i--) {
+			    if (l.isItemChecked(i)) {
+				first_checked_nonfinal = i;
+			    }
+			}
 
-							      alertDialog.dismiss();
-							  } 
-						      });
+			final int first_checked = first_checked_nonfinal;
 
-					      } else {
-						  // delete palette
-						  paletteFile.deletePalette(position);
-						  palette_names.remove(position);
-						  listAdapter.notifyDataSetChanged();
-					      }
-					  }
-				      });
-		    
-			builder.show();
+			AlertDialog.Builder builder;
+			final AlertDialog alertDialog;
+			LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+			View layout = inflater.inflate(R.layout.rename_palette, null);
 
+			builder = new AlertDialog.Builder(context);
+			builder.setView(layout);
+			builder.setTitle("Rename Palette");
+			alertDialog = builder.create();
+			alertDialog.show();
+
+			final EditText rename_text = (EditText) layout.findViewById(R.id.edittext);
+			rename_text.setText(palette_names.get(first_checked));
+
+			Button cancelButton = (Button) layout.findViewById(R.id.cancel);
+			cancelButton.setOnClickListener(new OnClickListener() {
+				public void onClick(View v)
+				{
+				    alertDialog.dismiss();
+				    m.finish();
+				} 
+			    });
+
+			Button doneButton = (Button) layout.findViewById(R.id.done);
+			doneButton.setOnClickListener(new OnClickListener() {
+				public void onClick(View v)
+				{
+				    String new_name = rename_text.getText().toString();
+
+				    // rename palettes
+				    for (int i = palette_names.size()-1; i >= 0; i--) {
+					if (l.isItemChecked(i)) {
+					    paletteFile.renamePalette(i, new_name);	
+					    palette_names.set(i, new_name);
+					    listAdapter.notifyDataSetChanged();
+					}
+				    }
+
+				    alertDialog.dismiss();
+				    m.finish();
+				} 
+			    });			       
 			return true;
-		    } else {
+		    default:
 			return false;
 		    }
 		}
+
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		    MenuInflater inflater = mode.getMenuInflater();
+		    inflater.inflate(R.menu.palette_list_context, menu);
+		    return true;
+		}
+
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+		}
+
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		    return false;
+		}
 	    });
-	
+
+
+
+
+	// l.setOnItemClickListener(new OnItemClickListener() {
+	// 	public void onItemClick (AdapterView<?> parent, View v, int position, long id) {
+	// 	    if (position == palette_names.size()) {
+
+	// 		// add palette
+	// 		paletteFile.addNewPalette("New Palette","000000");
+	// 		palette_names.add("New Palette");
+	// 		listAdapter.notifyDataSetChanged();
+
+	// 		// if the new list item pushed the 'add new palette' button below the screen,
+	// 		// scroll to the bottom
+	// 		if (l.getMeasuredHeight()+l.getChildAt(0).getMeasuredHeight() 
+	// 		    >=
+	// 		    findViewById(R.id.parentview).getMeasuredHeight()) {
+
+	// 		    l.smoothScrollToPosition(palette_names.size());
+	// 		}
+	// 	    }
+	// 	}
+	//     }); 
     }
 
     private String readPalleteFile () {
@@ -227,16 +305,5 @@ public class PaletteListActivity extends SherlockActivity
 	}
 	
 	return palettes_file;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-	switch (item.getItemId()) {
-        case android.R.id.home:
-	    finish();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-	}
     }
 }

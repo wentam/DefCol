@@ -38,10 +38,11 @@ import android.content.Context;
 
 import android.util.Log;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import android.graphics.drawable.ColorDrawable;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+
 
 import java.lang.Thread;
 import java.lang.Runnable;
@@ -63,7 +64,7 @@ import java.net.SocketException;
 import android.net.wifi.*;
 
 
-public class WebInterfaceActivity extends SherlockActivity {
+public class WebInterfaceActivity extends Activity {
     private Context context = this;
     Intent webServerService;
     private NotificationManager mNotificationManager;
@@ -86,9 +87,9 @@ public class WebInterfaceActivity extends SherlockActivity {
         setContentView(R.layout.computer_connect);
 
 	
-	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF222222));
-	getSupportActionBar().setTitle("Connect to a Computer");
+	getActionBar().setDisplayHomeAsUpEnabled(true);
+	// getActionBar().setBackgroundDrawable(new ColorDrawable(0xFF222222));
+	getActionBar().setTitle("Connect to a Computer");
 
 
 	String ns = Context.NOTIFICATION_SERVICE;

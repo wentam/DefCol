@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
+		android:layout_height="fill_parent"
+		android:background="?android:attr/activatedBackgroundIndicator">
 
   <Button
       android:id="@+id/main_btn"
@@ -21,26 +22,26 @@
       android:layout_alignParentLeft="true"/>
 
 
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:gravity="center_vertical"
-      android:layout_alignParentRight="true">
+  <!-- <LinearLayout -->
+  <!--     android:layout_width="wrap_content" -->
+  <!--     android:layout_height="wrap_content" -->
+  <!--     android:orientation="horizontal" -->
+  <!--     android:gravity="center_vertical" -->
+  <!--     android:layout_alignParentRight="true"> -->
 
-    <View
-	android:layout_width="1dp"
-	android:layout_height="40dp"
-	android:gravity="left|center_vertical"
-	android:background="#FF999999"/>
+  <!--   <View -->
+  <!-- 	android:layout_width="1dp" -->
+  <!-- 	android:layout_height="40dp" -->
+  <!-- 	android:gravity="left|center_vertical" -->
+  <!-- 	android:background="#FF999999"/> -->
 
-    <ImageButton
-	android:id="@+id/delete_btn"
-	android:layout_width="50dp"
-	android:layout_height="50dp"
-	android:gravity="right|center_vertical"
-	android:src="@drawable/ic_menu_delete"
-	android:background="@drawable/list_button_background"/>
+  <!--   <ImageButton -->
+  <!-- 	android:id="@+id/delete_btn" -->
+  <!-- 	android:layout_width="50dp" -->
+  <!-- 	android:layout_height="50dp" -->
+  <!-- 	android:gravity="right|center_vertical" -->
+  <!-- 	android:src="@drawable/ic_menu_delete" -->
+  <!-- 	android:background="@drawable/list_button_background"/> -->
 
-  </LinearLayout>
+  <!-- </LinearLayout> -->
 </RelativeLayout>

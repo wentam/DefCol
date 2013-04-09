@@ -6,6 +6,14 @@
     android:layout_height="fill_parent"
     android:background="@color/main_bg">
 
+
+  <FrameLayout
+      android:id="@+id/main"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="@drawable/mainbg"
+      android:layout_gravity="center">
+
   <!-- header start -->
   <!-- <RelativeLayout -->
   <!--     android:id="@+id/headerWrapper" -->
@@ -60,5 +68,6 @@
   <!--     android:layout_centerHorizontal="true" -->
   <!--     android:layout_marginTop="40dp"/> -->
 
+  </FrameLayout>
 </RelativeLayout>
 

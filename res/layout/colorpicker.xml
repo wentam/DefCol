@@ -6,6 +6,15 @@
     android:layout_height="fill_parent"
     android:background="@color/main_bg">
 
+  
+  <FrameLayout
+      android:id="@+id/main"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="@drawable/mainbg">
+
+  </FrameLayout>
+
     <com.wentam.defcol.colorpicker.h_svGL
 	android:id="@+id/h_sv"
 	android:layout_width="fill_parent"

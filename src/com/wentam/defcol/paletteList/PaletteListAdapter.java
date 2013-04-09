@@ -23,6 +23,7 @@ import com.wentam.defcol.palette.PaletteActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 
 
@@ -30,6 +31,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,32 +45,44 @@ public class PaletteListAdapter extends BaseAdapter {
     private PaletteFile paletteFile;
     private PaletteListAdapter me;
     private Context context;
+    private ListView lv;
 
     // --
     // listeners
     // --
 
-    OnClickListener deleteListener = new OnClickListener() {
+     OnClickListener mainListener = new OnClickListener() {
+    	    @Override
+    	    public void onClick(View v) {
+    		int position = (Integer) v.getTag();
+
+		if (lv.getCheckedItemCount() > 0) {
+		    if (lv.isItemChecked(position)) {
+			lv.setItemChecked(position, false);
+		    } else {
+			lv.setItemChecked(position, true);
+		    }
+		} else {
+		    Intent intent = new Intent(me.context, PaletteActivity.class);
+		    intent.putExtra("pallete_id",""+position);
+		    int[] tmp = {1};
+		    intent.putExtra("pallete_colors",""+me.paletteFile.getRow(position, tmp));
+		    me.context.startActivity(intent);
+		}
+    	    }
+    	};
+
+    OnLongClickListener longPress = new OnLongClickListener() {
 	    @Override
-	    public void onClick(View v) {
+	    public boolean onLongClick(View v) {
 		int position = (Integer) v.getTag();
-
-		me.paletteFile.deletePalette(position);
-		me.items.remove(position);
-		me.notifyDataSetChanged();
-	    }
-	};
-
-    OnClickListener mainListener = new OnClickListener() {
-	    @Override
-	    public void onClick(View v) {
-		int position = (Integer) v.getTag();
-
-		Intent intent = new Intent(me.context, PaletteActivity.class);
-		intent.putExtra("pallete_id",""+position);
-		int[] tmp = {1};
-		intent.putExtra("pallete_colors",""+me.paletteFile.getRow(position, tmp));
-		me.context.startActivity(intent);
+		
+		if (lv.isItemChecked(position)) {
+		    lv.setItemChecked(position, false);
+		} else {
+		    lv.setItemChecked(position, true);
+		}
+		return true;
 	    }
 	};
     
@@ -76,7 +90,7 @@ public class PaletteListAdapter extends BaseAdapter {
     // constructor
     // --
     
-    public PaletteListAdapter(Context c, ArrayList<String> i, PaletteFile p) {
+    public PaletteListAdapter(Context c, ArrayList<String> i, PaletteFile p, ListView l) {
 	super();
 
 	this.layoutInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -84,6 +98,7 @@ public class PaletteListAdapter extends BaseAdapter {
 	this.paletteFile = p;
 	this.me = this;
 	this.context = c;
+	this.lv = l;
     }
     
     // --
@@ -97,16 +112,11 @@ public class PaletteListAdapter extends BaseAdapter {
 	if (convertView == null) {
 	    convertView = layoutInflater.inflate(R.layout.palette_list_item, null);
 
-	    delete_btn = ((ImageButton) convertView.findViewById(R.id.delete_btn));
-	    delete_btn.setTag(position);
-	    delete_btn.setOnClickListener(deleteListener);
-
 	    main_btn = ((Button) convertView.findViewById(R.id.main_btn));
 	    main_btn.setTag(position);
 	    main_btn.setOnClickListener(mainListener);
+	    main_btn.setOnLongClickListener(longPress);
 	} else {
-	    delete_btn = ((ImageButton) convertView.findViewById(R.id.delete_btn));
-	    delete_btn.setTag(position);
 	    
 	    main_btn = ((Button) convertView.findViewById(R.id.main_btn));
 	    main_btn.setTag(position);

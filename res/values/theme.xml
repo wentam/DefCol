@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <style name="DefCol" parent="@style/Theme.Sherlock">
-    <item name="android:actionBarStyle">@style/ActionBar</item>  	
+  <style name="DefCol" parent="@android:style/Theme.Holo.Light">
+    <item name="android:actionBarStyle">@style/ActionBar</item>
   </style>
 
   <!-- action bar -->

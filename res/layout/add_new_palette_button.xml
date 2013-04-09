@@ -5,6 +5,7 @@
     android:layout_height="70dp"
     android:gravity="center"
     android:background="@drawable/add_new_palette_button_bg">
+
   <ImageView 
       android:id="@+id/add_new_palette_button"
       android:layout_width="20dp"

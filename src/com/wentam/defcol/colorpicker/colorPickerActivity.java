@@ -45,17 +45,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.content.res.Resources;
 import android.text.ClipboardManager;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.ActionProvider;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
+import android.view.ActionProvider;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 
 import android.widget.Toast;
 
 import java.lang.String;
 
-public class colorPickerActivity extends SherlockActivity
+public class colorPickerActivity extends Activity
 {
     private String startingColor;
 
@@ -90,7 +89,7 @@ public class colorPickerActivity extends SherlockActivity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-	setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
+	// setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
         super.onCreate(savedInstanceState);
 
 	// get dpi 
@@ -104,7 +103,7 @@ public class colorPickerActivity extends SherlockActivity
 
 	h_sv.getHolder().setFormat(PixelFormat.TRANSPARENT);       
 	
-	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 
 	// set color
@@ -121,8 +120,8 @@ public class colorPickerActivity extends SherlockActivity
 
 	color_id = Integer.parseInt(extras.getString("color_id"));
 
-	getSupportActionBar().setBackgroundDrawable(new ColorDrawable(colorint));
-	getSupportActionBar().setTitle("#"+((Integer.toHexString(colorint)).substring(2)));
+	getActionBar().setBackgroundDrawable(new ColorDrawable(colorint));
+	getActionBar().setTitle("#"+((Integer.toHexString(colorint)).substring(2)));
 	color = "#"+((Integer.toHexString(colorint)).substring(2));
 
 	int red = Color.red(colorint);
@@ -168,8 +167,8 @@ public class colorPickerActivity extends SherlockActivity
 		    setResult(Activity.RESULT_OK, resultIntent);
 
          
-		    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.HSVToColor(_hsv)));
-		    getSupportActionBar().setTitle("#"+((Integer.toHexString(Color.HSVToColor(_hsv))).substring(2)));		   
+		    getActionBar().setBackgroundDrawable(new ColorDrawable(Color.HSVToColor(_hsv)));
+		    getActionBar().setTitle("#"+((Integer.toHexString(Color.HSVToColor(_hsv))).substring(2)));		   
 		    color = "#"+((Integer.toHexString(Color.HSVToColor(_hsv))).substring(2));
 		}
 	    });
