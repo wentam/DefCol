@@ -48,6 +48,10 @@
 	<activity android:name=".colorpicker.colorPickerActivity"
 		  android:label="@string/app_name"
 		  android:theme="@style/DefCol">
+          <intent-filter>
+	    <action android:name="com.wentam.defcol.ACTION_SELECT_COLOR" />
+	    <category android:name="android.intent.category.DEFAULT" />
+          </intent-filter>
 	</activity>
 
 	<service android:name=".connect_to_computer.WebServerService"

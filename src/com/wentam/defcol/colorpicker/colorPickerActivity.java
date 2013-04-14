@@ -83,6 +83,9 @@ public class colorPickerActivity extends Activity
         // subMenu1Item.setIcon(R.drawable.list);
         subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
+	menu.add("Done")
+	    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
         return true;
     }
 
@@ -214,7 +217,7 @@ public class colorPickerActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-	if (item.getItemId() == android.R.id.home) {
+	if (item.getItemId() == android.R.id.home || item.toString() == "Done") {
 	    finish();
             return true;
 	} else if (item.toString() == "Copy color") {
