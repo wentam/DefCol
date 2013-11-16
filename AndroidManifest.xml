@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.wentam.defcol"
-      android:versionCode="5"
-      android:versionName="0.9.9"> <!-- previous version 0.9.9. when going into the 'development' versionName, increment the versionCode. -->
+      android:versionCode="6"
+      android:versionName="0.9.10"> <!-- previous version 0.9.10. when going into the 'development' versionName, increment the versionCode. -->
 
 <supports-screens android:resizeable="true"
                   android:smallScreens="true"

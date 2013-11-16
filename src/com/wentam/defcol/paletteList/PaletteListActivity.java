@@ -73,6 +73,8 @@ import android.view.SubMenu;
 
 import android.graphics.drawable.ColorDrawable;
 
+import java.lang.NullPointerException;
+
 public class PaletteListActivity extends Activity
 {
     private File file;
@@ -92,28 +94,31 @@ public class PaletteListActivity extends Activity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-	if (item.getItemId() == android.R.id.home) {
-	    finish();
-            return true;
-	} else if (item.toString() == "Add Palette") {
-	    paletteFile.addNewPalette("New Palette","000000");
-	    palette_names.add("New Palette");
-	    listAdapter.notifyDataSetChanged();
-	    
-	    // if the new list item pushed the 'add new palette' button below the screen,
-	    // scroll to the bottom
-	    if (l.getMeasuredHeight()+l.getChildAt(0).getMeasuredHeight() 
-		>=
-		findViewById(R.id.parentview).getMeasuredHeight()) {
-		
-		l.smoothScrollToPosition(palette_names.size());
-	    }
-	    return true;
-	} else {
-	    return super.onOptionsItemSelected(item);
-	}
-    }
+        public boolean onOptionsItemSelected(MenuItem item) {
+            try {
+                if (item.getItemId() == android.R.id.home) {
+                    finish();
+                    return true;
+                } else if (item.toString() == "Add Palette") {
+                    paletteFile.addNewPalette("New Palette","000000");
+                    palette_names.add("New Palette");
+                    listAdapter.notifyDataSetChanged();
+
+                    // if the new list item pushed the 'add new palette' button below the screen,
+                    // scroll to the bottom
+                    if (l.getMeasuredHeight()+l.getChildAt(0).getMeasuredHeight()
+                            >=
+                            findViewById(R.id.parentview).getMeasuredHeight()) {
+
+                        l.smoothScrollToPosition(palette_names.size());
+                    }
+                    return true;
+                } else {
+                    return super.onOptionsItemSelected(item);
+                }
+            } catch (NullPointerException e) {}
+            return false;
+        }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
